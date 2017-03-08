@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_enter"
+            android:icon="@drawable/enter"
+            android:title="Entrar"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_feed"
+            android:icon="@drawable/feed"
+            android:title="Timeline"/>
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/profile"
+            android:title="Perfil"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_spaces"
+            android:icon="@drawable/spaces"
+            android:title="Espaços" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/settings"
+            android:title="Configurações da Conta" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout"
+            android:title="Sair da Conta" />
+    </group>
+
+    <item android:title="Redes Sociais">
+        <menu>
+            <item
+                android:id="@+id/nav_facebook"
+                android:icon="@drawable/facebook"
+                android:title="Facebook" />
+            <item
+                android:id="@+id/nav_twitter"
+                android:icon="@drawable/twitter"
+                android:title="Twitter" />
+        </menu>
+    </item>
+
+</menu>
