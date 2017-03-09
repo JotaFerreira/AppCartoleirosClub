@@ -98,7 +98,8 @@ public class MainActivity extends AppCompatActivity
         dialog = new ProgressDialog(MainActivity.this);
         dialog.setTitle("Cartoleiros Club");
         dialog.setMessage("Carregando..");
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(false);
 
         /*swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipeToRefresh);
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
