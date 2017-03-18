@@ -278,12 +278,8 @@ public class MainActivity extends AppCompatActivity
 
         if (url.contains("?r=user%2Fauth%2Flogin")) {
             getSupportActionBar().hide();
-            // getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            // getSupportActionBar().setHomeButtonEnabled(false);
         } else {
             getSupportActionBar().show();
-            //  getSupportActionBar().setHomeButtonEnabled(true);
-            // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
     }
