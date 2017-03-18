@@ -2,12 +2,15 @@ package club.cartoleirosfutebol.cartoleirosclub;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -28,12 +31,17 @@ import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 
+import dmax.dialog.SpotsDialog;
 import im.delight.android.webview.AdvancedWebView;
 
 public class MainActivity extends AppCompatActivity
@@ -41,16 +49,22 @@ public class MainActivity extends AppCompatActivity
 
     private AdvancedWebView mWebView;
     public static final String _URLMAIN = "http://cartoleirosfutebol.club/";
+    public static final String _URLFriendly = "cartoleirosfutebol.club";
     public static final String _URLOFFLINE = "file:///android_asset/offline.html";
     Menu mMenuNavigation;
-    //private SwipeRefreshLayout swipeLayout;
+    private SwipeRefreshLayout swipeLayout;
     private ImageView imageProfile;
-    private ProgressDialog dialog;
+    private AlertDialog dialog;
+    private TextView nameProfile;
+    private TextView titleProfile;
+    private User user = new User();
+    private View mainView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mainView = findViewById(R.id.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -91,17 +105,17 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         mMenuNavigation = navigationView.getMenu();
 
-        View hView =  navigationView.getHeaderView(0);
-        imageProfile = (ImageView)hView.findViewById(R.id.imageView);
+        View hView = navigationView.getHeaderView(0);
+        imageProfile = (ImageView) hView.findViewById(R.id.imageView);
+        nameProfile = (TextView) hView.findViewById(R.id.txtName);
+        titleProfile = (TextView) hView.findViewById(R.id.txtTitle);
         Glide.with(this).load(R.drawable.default_user).transform(new CircleTransform(this)).into(imageProfile);
 
-        dialog = new ProgressDialog(MainActivity.this);
-        dialog.setTitle("Cartoleiros Club");
-        dialog.setMessage("Carregando..");
+        dialog = new SpotsDialog(this, R.style.CustomDialogProgress);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(false);
 
-        /*swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipeToRefresh);
+        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipeToRefresh);
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -109,7 +123,7 @@ public class MainActivity extends AppCompatActivity
                 mWebView.reload(); // refreshes the WebView
             }
 
-        });*/
+        });
 
         mWebView = (AdvancedWebView) findViewById(R.id.webview);
         mWebView.setWebChromeClient(new WebChromeClient());
@@ -130,7 +144,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onReceivedError(WebView view, WebResourceRequest req, WebResourceError rerr) {
                 // Redirect to deprecated method, so you can use it in all SDK versions
-                if(dialog.isShowing()){
+                if (dialog.isShowing()) {
                     dialog.dismiss();
                 }
                 onReceivedError(view, rerr.getErrorCode(), rerr.getDescription().toString(), req.getUrl().toString());
@@ -140,11 +154,11 @@ public class MainActivity extends AppCompatActivity
             public void onPageFinished(WebView view, String url) {
                 // TODO Auto-generated method stub
                 super.onPageFinished(view, url);
-                if(dialog.isShowing() && dialog != null) {
+                if (dialog.isShowing() && dialog != null) {
                     dialog.dismiss();
                 }
-                if(!url.equals(_URLOFFLINE)) {
-                    mWebView.loadUrl("javascript:alert(getImageProfile())");
+                if (!url.equals(_URLOFFLINE)) {
+                    mWebView.loadUrl("javascript:alert(dataProfile())");
                 }
             }
 
@@ -153,22 +167,33 @@ public class MainActivity extends AppCompatActivity
 
                 super.onPageStarted(view, url, favicon);
 
-                if(!dialog.isShowing() && dialog != null) {
+                if (!dialog.isShowing() && dialog != null) {
 
                     dialog.show();
                 }
             }
 
-        });
-
-        mWebView.setWebChromeClient(new WebChromeClient(){
             @Override
-            public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
-                changeImageProfile(message);
-                result.confirm();
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if(seConectado()){
+                    if(url.contains(_URLFriendly)) {
+                        view.loadUrl(url);
+                    } else {
+                        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(i);
+                    }
+                } else{
+                    Snackbar.make(mainView, "Você não está conectado com a internet", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                    mWebView.loadUrl(_URLOFFLINE);
+                }
+
                 return true;
             }
+
         });
+
+        mWebView.setWebChromeClient(new MyWebChromeClient());
 
         mWebView.loadUrl("http://cartoleirosfutebol.club");
 
@@ -230,6 +255,10 @@ public class MainActivity extends AppCompatActivity
             mWebView.loadUrl(_URLMAIN + "?r=directory%2Fdirectory%2Fspaces");
         } else if (id == R.id.nav_logout) {
             mWebView.loadUrl(_URLMAIN + "?r=user%2Fauth%2Flogout");
+        } else if (id == R.id.nav_members) {
+            mWebView.loadUrl(_URLMAIN + "?r=directory%2Fdirectory%2Fmembers");
+        } else if (id == R.id.nav_posts) {
+            mWebView.loadUrl(_URLMAIN + "?r=directory%2Fdirectory%2Fuser-posts");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -245,43 +274,23 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onPageFinished(String url) {
 
-        //swipeLayout.setRefreshing(false);
+        swipeLayout.setRefreshing(false);
 
-        if(!url.equals(_URLOFFLINE)){
+   /*     if(!isConnected(this)){
 
-            Boolean logado = getCookie(url, "_identity") == null ? false : true;
-            MenuItem itemEntrar = mMenuNavigation.findItem(R.id.nav_enter);
-            MenuItem itemFeed = mMenuNavigation.findItem(R.id.nav_feed);
-            MenuItem itemEspacos = mMenuNavigation.findItem(R.id.nav_spaces);
-            MenuItem itemProfile = mMenuNavigation.findItem(R.id.nav_profile);
-            MenuItem itemSettings = mMenuNavigation.findItem(R.id.nav_settings);
-            MenuItem itemLogout = mMenuNavigation.findItem(R.id.nav_logout);
+        }
 
-            if (logado) {
-                itemEntrar.setVisible(false);
-                itemEspacos.setVisible(true);
-                itemFeed.setVisible(true);
-                itemProfile.setVisible(true);
-                itemSettings.setVisible(true);
-                itemLogout.setVisible(true);
-            } else {
-                itemEntrar.setVisible(true);
-                itemEspacos.setVisible(true);
-                itemFeed.setVisible(true);
-                itemProfile.setVisible(false);
-                itemSettings.setVisible(false);
-                itemLogout.setVisible(false);
-            }
+        if (!url.equals(_URLOFFLINE)) {
 
         }
 
         if (url.contains("?r=user%2Fauth%2Flogin")) {
-           // getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-           // getSupportActionBar().setHomeButtonEnabled(false);
+            // getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            // getSupportActionBar().setHomeButtonEnabled(false);
         } else {
-          //  getSupportActionBar().setHomeButtonEnabled(true);
-           // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+            //  getSupportActionBar().setHomeButtonEnabled(true);
+            // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }*/
 
     }
 
@@ -306,7 +315,7 @@ public class MainActivity extends AppCompatActivity
         CookieManager cookieManager = CookieManager.getInstance();
         String cookies = cookieManager.getCookie(siteName);
 
-        if(cookies != null){
+        if (cookies != null) {
             String[] temp = cookies.split(";");
             for (String ar1 : temp) {
                 if (ar1.contains(CookieName)) {
@@ -349,11 +358,11 @@ public class MainActivity extends AppCompatActivity
         // ...
     }
 
-    public boolean seConectado(){
+    public boolean seConectado() {
         return isConnected(this);
     }
 
-    public boolean isConnected(Context context){
+    public boolean isConnected(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(
                 Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -362,7 +371,7 @@ public class MainActivity extends AppCompatActivity
         return isConnected;
     }
 
-    public boolean isWifi(Context context){
+    public boolean isWifi(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(
                 Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -370,22 +379,137 @@ public class MainActivity extends AppCompatActivity
         return isWiFi;
     }
 
+    private void setVisibilityItems(String url){
+
+        Boolean isLogadoByCookie = getCookie(url, "_identity") == null ? false : true;
+        String labelVisitante = user.getName() == null ? "" : user.getName();
+        boolean isVisitante = true;
+
+        if (labelVisitante != null) {
+            // Usuário que logam assim que registram, não possuem cookie '+identity', então identificamos se ele está logado usando o nome 'Visitante'
+            isVisitante = labelVisitante.equals("") || labelVisitante.toLowerCase().equals("visitante");
+        }
+
+        boolean logado = isLogadoByCookie || !isVisitante;
+
+        MenuItem itemEntrar = mMenuNavigation.findItem(R.id.nav_enter);
+        MenuItem itemFeed = mMenuNavigation.findItem(R.id.nav_feed);
+        MenuItem itemEspacos = mMenuNavigation.findItem(R.id.nav_spaces);
+        MenuItem itemProfile = mMenuNavigation.findItem(R.id.nav_profile);
+        MenuItem itemSettings = mMenuNavigation.findItem(R.id.nav_settings);
+        MenuItem itemLogout = mMenuNavigation.findItem(R.id.nav_logout);
+        MenuItem itemMembers = mMenuNavigation.findItem(R.id.nav_members);
+        MenuItem itemPosts = mMenuNavigation.findItem(R.id.nav_posts);
+
+        if (logado) {
+            itemEntrar.setVisible(false);
+            itemEspacos.setVisible(true);
+            itemFeed.setVisible(true);
+            itemProfile.setVisible(true);
+            itemSettings.setVisible(true);
+            itemLogout.setVisible(true);
+            itemMembers.setVisible(true);
+            itemPosts.setVisible(true);
+        } else {
+            itemEntrar.setVisible(true);
+            itemEspacos.setVisible(true);
+            itemFeed.setVisible(true);
+            itemProfile.setVisible(false);
+            itemSettings.setVisible(false);
+            itemLogout.setVisible(false);
+            itemMembers.setVisible(true);
+            itemPosts.setVisible(true);
+        }
+
+    }
+
     public void hideSoftKeyboard() {
-        if(getCurrentFocus()!=null) {
+        if (getCurrentFocus() != null) {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
     }
 
-    public void changeImageProfile(String src){
+    public void handleDataInformation(String json) {
         try {
-            if(src != ""){
-                String imageUrl = _URLMAIN + src;
-                Glide.with(this).load(imageUrl).transform(new CircleTransform(this)).into(imageProfile);
+            Log.i("JSON", json);
+            if (json != null && json != "") {
+                Gson gson = new Gson();
+                user = gson.fromJson(json, User.class);
+                setVisibilityItems(mWebView.getUrl());
+
+                String img = user.getImg();
+                String name = user.getName();
+                String title = user.getTitle();
+
+                if (name != "") {
+                    nameProfile.setText(name);
+                }
+
+                if (title != "") {
+                    titleProfile.setText(title);
+                }
+
+                if (img != "") {
+                    String imageUrl = _URLMAIN + img;
+                    Glide.with(this).load(imageUrl).transform(new CircleTransform(this)).into(imageProfile);
+                }
             }
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public class MyWebChromeClient
+            extends WebChromeClient {
+        private View mCustomView;
+        private WebChromeClient.CustomViewCallback mCustomViewCallback;
+        protected FrameLayout mFullscreenContainer;
+        private int mOriginalOrientation;
+        private int mOriginalSystemUiVisibility;
+
+        public MyWebChromeClient() {
+        }
+
+        public Bitmap getDefaultVideoPoster() {
+            if (MainActivity.this == null) {
+                return null;
+            }
+            return BitmapFactory.decodeResource(MainActivity.this.getApplicationContext().getResources(), 2130837573);
+        }
+
+        public void onHideCustomView() {
+            ((FrameLayout) MainActivity.this.getWindow().getDecorView()).removeView(this.mCustomView);
+            this.mCustomView = null;
+            MainActivity.this.getWindow().getDecorView().setSystemUiVisibility(this.mOriginalSystemUiVisibility);
+            MainActivity.this.setRequestedOrientation(this.mOriginalOrientation);
+            this.mCustomViewCallback.onCustomViewHidden();
+            this.mCustomViewCallback = null;
+        }
+
+        public void onShowCustomView(View paramView, WebChromeClient.CustomViewCallback paramCustomViewCallback) {
+            if (this.mCustomView != null) {
+                onHideCustomView();
+                return;
+            }
+            this.mCustomView = paramView;
+            this.mCustomView.setBackgroundColor(Color.BLACK);
+            this.mOriginalSystemUiVisibility = MainActivity.this.getWindow().getDecorView().getSystemUiVisibility();
+            this.mOriginalOrientation = MainActivity.this.getRequestedOrientation();
+            this.mCustomViewCallback = paramCustomViewCallback;
+            ((FrameLayout) MainActivity.this.getWindow().getDecorView()).addView(this.mCustomView, new FrameLayout.LayoutParams(-1, -1));
+            MainActivity.this.getWindow().getDecorView().setSystemUiVisibility(3846);
+        }
+
+        @Override
+        public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+            handleDataInformation(message);
+            result.confirm();
+            return true;
+        }
+
     }
 
 }

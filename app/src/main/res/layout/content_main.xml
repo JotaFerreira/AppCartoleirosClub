@@ -18,10 +18,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-       <!-- <android.support.v4.widget.SwipeRefreshLayout-->
-            <!--android:id="@+id/swipeToRefresh"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeToRefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">-->
+            android:layout_height="match_parent">
 
             <im.delight.android.webview.AdvancedWebView
                 android:id="@+id/webview"
@@ -29,7 +29,7 @@
                 android:layout_height="match_parent" >
             </im.delight.android.webview.AdvancedWebView>
 
-       <!-- </android.support.v4.widget.SwipeRefreshLayout>-->
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     </RelativeLayout>
 
