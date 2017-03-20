@@ -44,6 +44,8 @@ import com.google.gson.Gson;
 import dmax.dialog.SpotsDialog;
 import im.delight.android.webview.AdvancedWebView;
 
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, AdvancedWebView.Listener {
 
@@ -259,6 +261,11 @@ public class MainActivity extends AppCompatActivity
             mWebView.loadUrl(_URLMAIN + "?r=directory%2Fdirectory%2Fmembers");
         } else if (id == R.id.nav_posts) {
             mWebView.loadUrl(_URLMAIN + "?r=directory%2Fdirectory%2Fuser-posts");
+        } else if (id == R.id.nav_selecao) {
+            mWebView.loadUrl(_URLMAIN + "?r=custom_pages%2Fview&id=3");
+        } else if (id == R.id.nav_messenger) {
+            Intent intent = new Intent(this, MessengerActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
