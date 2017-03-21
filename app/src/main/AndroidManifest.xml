@@ -41,11 +41,6 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".SignInActivity" />
-        <activity
-            android:name=".MessengerActivity"
-            android:label="@string/title_activity_messenger"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

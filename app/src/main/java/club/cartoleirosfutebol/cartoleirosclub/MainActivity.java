@@ -41,6 +41,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
+import java.util.Arrays;
+
 import dmax.dialog.SpotsDialog;
 import im.delight.android.webview.AdvancedWebView;
 
@@ -51,7 +53,11 @@ public class MainActivity extends AppCompatActivity
 
     private AdvancedWebView mWebView;
     public static final String _URLMAIN = "http://cartoleirosfutebol.club/";
-    public static final String _URLFriendly = "cartoleirosfutebol.club";
+    public static final String _URL_MESSENGER_MAIN = "http://messenger.cartoleirosfutebol.club/website";
+    public static String[] URLsFriendly = {
+            "cartoleirosfutebol.club",
+            "accounts.google.com"
+    };
     public static final String _URLOFFLINE = "file:///android_asset/offline.html";
     Menu mMenuNavigation;
     private SwipeRefreshLayout swipeLayout;
@@ -178,7 +184,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if(seConectado()){
-                    if(url.contains(_URLFriendly)) {
+                    if(isFriendlyURL(url,URLsFriendly)) {
                         view.loadUrl(url);
                     } else {
                         Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -264,8 +270,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_selecao) {
             mWebView.loadUrl(_URLMAIN + "?r=custom_pages%2Fview&id=3");
         } else if (id == R.id.nav_messenger) {
-            Intent intent = new Intent(this, MessengerActivity.class);
-            startActivity(intent);
+            /*Intent intent = new Intent(this, MessengerActivity.class);
+            startActivity(intent);*/
+            mWebView.loadUrl(_URL_MESSENGER_MAIN);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -366,6 +373,18 @@ public class MainActivity extends AppCompatActivity
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnected(); // isConnectedOrConnecting()
         return isConnected;
+    }
+
+    public static boolean isFriendlyURL(String inputStr, String[] items)
+    {
+        for(int i =0; i < items.length; i++)
+        {
+            if(inputStr.contains(items[i]))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean isWifi(Context context) {
