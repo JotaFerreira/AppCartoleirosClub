@@ -270,9 +270,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_selecao) {
             mWebView.loadUrl(_URLMAIN + "?r=custom_pages%2Fview&id=3");
         } else if (id == R.id.nav_messenger) {
-            /*Intent intent = new Intent(this, MessengerActivity.class);
-            startActivity(intent);*/
-            mWebView.loadUrl(_URL_MESSENGER_MAIN);
+            Intent intent = new Intent(this, MessengerActivity.class);
+            startActivity(intent);
+          //  mWebView.loadUrl(_URL_MESSENGER_MAIN);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

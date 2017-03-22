@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "61877416903",
+    "firebase_url": "https://cartoleiros-club-8fb18.firebaseio.com",
+    "project_id": "cartoleiros-club-8fb18",
+    "storage_bucket": "cartoleiros-club-8fb18.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:61877416903:android:316164484aba2afd",
+        "android_client_info": {
+          "package_name": "club.cartoleirosfutebol.cartoleirosclub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "61877416903-97ml7akrfs2svkrgp0feniemgn050lfi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "club.cartoleirosfutebol.cartoleirosclub",
+            "certificate_hash": "b61505f31aa3e4249f2e5ef0aec82e223b352760"
+          }
+        },
+        {
+          "client_id": "61877416903-934ljsncl9matcs6a2mpj6kkm4lqpt9s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4SE8smb84RHTeshB-oQguS2fwrqFYk2k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "61877416903-934ljsncl9matcs6a2mpj6kkm4lqpt9s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
