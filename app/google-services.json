@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "61877416903-s58ot2io95a22tck0epqv17f3bj95kcs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "club.cartoleirosfutebol.cartoleirosclub",
+            "certificate_hash": "66cf16e4a408ecad87e03b34e316b236607a13e2"
+          }
+        },
+        {
           "client_id": "61877416903-97ml7akrfs2svkrgp0feniemgn050lfi.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
