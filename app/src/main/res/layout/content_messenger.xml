@@ -9,6 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/colorLightPlus"
     tools:context="club.cartoleirosfutebol.cartoleirosclub.MessengerActivity">
 
     <com.google.android.gms.ads.AdView
@@ -52,14 +53,16 @@
             android:maxLength="100"
             android:layout_weight="1"/>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/roundshapebtn"
-            android:enabled="false"
-            android:text="Enviar"
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:id="@+id/sendButton"
-            android:layout_gravity="bottom"/>
+            android:src="@drawable/soccer"
+            android:scaleType="fitXY"
+            android:padding="13dp"
+            android:background="@drawable/round_button"
+            android:enabled="false"
+            android:layout_gravity="bottom" />
 
     </LinearLayout>
 
