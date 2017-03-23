@@ -107,7 +107,7 @@ public class MessengerActivity extends AppCompatActivity implements
     private FirebaseUser mFirebaseUser;
     private FirebaseAnalytics mFirebaseAnalytics;
     private EditText mMessageEditText;
-    private ImageView mAddMessageImageView;
+    //private ImageView mAddMessageImageView;
     private AdView mAdView;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
     private GoogleApiClient mGoogleApiClient;
@@ -291,16 +291,16 @@ public class MessengerActivity extends AppCompatActivity implements
             }
         });
 
-        mAddMessageImageView = (ImageView) findViewById(R.id.addMessageImageView);
+       /* mAddMessageImageView = (ImageView) findViewById(R.id.addMessageImageView);
         mAddMessageImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("image/*");
+                intent.setType("image*//*");
                 startActivityForResult(intent, REQUEST_IMAGE);
             }
-        });
+        });*/
 
         mSendButton = (ImageButton) findViewById(R.id.sendButton);
         mSendButton.setOnClickListener(new View.OnClickListener() {
@@ -384,6 +384,7 @@ public class MessengerActivity extends AppCompatActivity implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case R.id.invite_menu:
                 sendInvitation();
@@ -402,6 +403,9 @@ public class MessengerActivity extends AppCompatActivity implements
                 return true;
             case R.id.fresh_config_menu:
                 fetchConfig();
+                return true;
+            case android.R.id.home:
+                onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
