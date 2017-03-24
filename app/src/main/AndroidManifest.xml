@@ -49,11 +49,11 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
-<!--                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
                 <data
                     android:host="friendlychat.firebase.google.com"
                     android:scheme="http"
-                    android:pathPrefix="/message"/>-->
+                    android:pathPrefix="/message"/>
 
             </intent-filter>
 
