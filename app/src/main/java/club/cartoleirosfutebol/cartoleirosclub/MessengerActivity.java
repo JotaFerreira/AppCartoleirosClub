@@ -84,7 +84,7 @@ public class MessengerActivity extends AppCompatActivity implements
     }
 
     private static final String TAG = "MainActivity";
-    public static final String MESSAGES_CHILD = "messages";
+    public static final String MESSAGES_CHILD = "messageschat";
     private static final int REQUEST_INVITE = 1;
     private static final int REQUEST_IMAGE = 2;
     public static final int DEFAULT_MSG_LENGTH_LIMIT = 100;
@@ -295,7 +295,7 @@ public class MessengerActivity extends AppCompatActivity implements
         mAddMessageImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("image/*");
                 startActivityForResult(intent, REQUEST_IMAGE);

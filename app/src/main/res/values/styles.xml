@@ -25,7 +25,7 @@
     <style name="CustomDialogProgress" parent="android:Theme.DeviceDefault.Dialog">
         <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
         <item name="DialogTitleText">Carregando</item>
-        <item name="DialogSpotColor">@android:color/holo_orange_dark</item>
+        <item name="DialogSpotColor">@color/colorLight</item>
         <item name="DialogSpotCount">8</item>
     </style>
 
