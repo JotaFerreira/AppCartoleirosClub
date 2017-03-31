@@ -84,7 +84,7 @@ public class MessengerActivity extends AppCompatActivity implements
     }
 
     private static final String TAG = "MainActivity";
-    public static final String MESSAGES_CHILD = "messageschat";
+    public static String MESSAGES_CHILD = "messages";
     private static final int REQUEST_INVITE = 1;
     private static final int REQUEST_IMAGE = 2;
     public static final int DEFAULT_MSG_LENGTH_LIMIT = 100;
@@ -119,6 +119,9 @@ public class MessengerActivity extends AppCompatActivity implements
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        String room = getIntent().getStringExtra("room");
+        Log.e("MESSENGER IN STRING",room);
+        MESSAGES_CHILD = room;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);

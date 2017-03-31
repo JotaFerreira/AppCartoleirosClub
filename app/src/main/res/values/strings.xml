@@ -16,5 +16,6 @@
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
     <string name="title_activity_messenger">Cartoleiros Messenger</string>
     <string name="title_activity_sign_in">Cartoleiros Messenger</string>
+    <string name="title_activity_rooms">RoomsActivity</string>
 
 </resources>

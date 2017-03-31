@@ -33,6 +33,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
     private SignInButton mSignInButton;
+    private static String _ROOM;
 
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mFirebaseAuth;
@@ -44,6 +45,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        _ROOM = getIntent().getStringExtra("room");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Assign fields
@@ -78,10 +80,13 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         if (authResult != null) {
             // Welcome the user
             FirebaseUser user = authResult.getUser();
-            Toast.makeText(this, "Welcome " + user.getEmail(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Bem-vindo " + user.getEmail(), Toast.LENGTH_SHORT).show();
 
             // Go back to the main activity
-            startActivity(new Intent(this, MessengerActivity.class));
+            Intent msnIntent = new Intent(this, MessengerActivity.class);
+            Log.e("SIGN IN STRING",_ROOM);
+            msnIntent.putExtra("room",_ROOM);
+            startActivity(msnIntent);
         }
     }
 
@@ -109,7 +114,9 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     }
 
     private void signIn() {
+
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        signInIntent.putExtra("room",_ROOM);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 

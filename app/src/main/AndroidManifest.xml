@@ -45,42 +45,43 @@
             android:name=".MessengerActivity"
             android:label="@string/title_activity_messenger"
             android:theme="@style/AppTheme.NoActionBar">
-
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="friendlychat.firebase.google.com"
-                    android:scheme="http"
-                    android:pathPrefix="/message"/>
-
+                    android:pathPrefix="/message"
+                    android:scheme="http" />
             </intent-filter>
-
         </activity>
-
-            />
+        />
         <activity
             android:name=".SignInActivity"
             android:label="@string/title_activity_sign_in"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <service
-            android:name="club.cartoleirosfutebol.cartoleirosclub.MyFirebaseMessagingService"
+            android:name=".MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service
-            android:name="club.cartoleirosfutebol.cartoleirosclub.MyFirebaseInstanceIDService"
+            android:name=".MyFirebaseInstanceIDService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
+        <activity
+            android:name=".RoomsActivity"
+            android:label="@string/title_activity_rooms"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
