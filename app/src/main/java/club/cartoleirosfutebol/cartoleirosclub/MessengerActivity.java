@@ -83,7 +83,7 @@ public class MessengerActivity extends AppCompatActivity implements
         }
     }
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "MessengerActivity";
     public static String MESSAGES_CHILD = "messages";
     private static final int REQUEST_INVITE = 1;
     private static final int REQUEST_IMAGE = 2;
@@ -120,9 +120,19 @@ public class MessengerActivity extends AppCompatActivity implements
         setSupportActionBar(toolbar);
 
         String room = getIntent().getStringExtra("room");
-        Log.e("MESSENGER IN STRING",room);
-        MESSAGES_CHILD = room;
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if(room != null && room != ""){
+            MESSAGES_CHILD = room;
+        }
+
+        if(MESSAGES_CHILD.equalsIgnoreCase("messages")){
+            setTitle("CM - Cartoleiros");
+        } else {
+            String customTitle = MESSAGES_CHILD.replace("messages_","");
+            setTitle("CM - " + customTitle.substring(0, 1).toUpperCase() + customTitle.substring(1));
+        }
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mUsername = ANONYMOUS;
@@ -133,7 +143,9 @@ public class MessengerActivity extends AppCompatActivity implements
 
         if (mFirebaseUser == null) {
             // Not signed in, launch the Sign In activity
-            startActivity(new Intent(this, SignInActivity.class));
+            Intent myIntent = new Intent(this, SignInActivity.class);
+            myIntent.putExtra("room",MESSAGES_CHILD);
+            startActivity(myIntent);
             finish();
             return;
         } else {
@@ -317,14 +329,6 @@ public class MessengerActivity extends AppCompatActivity implements
             }
         });
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
     }
 
     private Action getMessageViewAction(FriendlyMessage friendlyMessage) {
@@ -389,24 +393,24 @@ public class MessengerActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.invite_menu:
+            /*case R.id.invite_menu:
                 sendInvitation();
-                return true;
-            case R.id.crash_menu:
+                return true;*/
+            /*case R.id.crash_menu:
                 FirebaseCrash.logcat(Log.ERROR, TAG, "crash caused");
                 causeCrash();
-                return true;
+                return true;*/
             case R.id.sign_out_menu:
                 mFirebaseAuth.signOut();
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient);
                 mFirebaseUser = null;
                 mUsername = ANONYMOUS;
                 mPhotoUrl = null;
-                startActivity(new Intent(this, SignInActivity.class));
+                startActivity(new Intent(this, RoomsActivity.class));
                 return true;
-            case R.id.fresh_config_menu:
+            /*case R.id.fresh_config_menu:
                 fetchConfig();
-                return true;
+                return true;*/
             case android.R.id.home:
                 onBackPressed();
                 return true;
@@ -457,7 +461,7 @@ public class MessengerActivity extends AppCompatActivity implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: requestCode=" + requestCode + ", resultCode=" + resultCode);
+        Log.e(TAG, "onActivityResult: requestCode=" + requestCode + ", resultCode=" + resultCode);
 
         if (requestCode == REQUEST_IMAGE) {
             if (resultCode == RESULT_OK) {

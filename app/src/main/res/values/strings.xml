@@ -5,14 +5,11 @@
     <string name="welcome_msg">Bem-vindo!</string>
     <string name="sign_out">Sair do Messenger</string>
     <string name="contacts_permission_rationale">Para acessar as informações da conta é necessário conectar-se.</string>
-    <string name="invite_menu_label">Invite</string>
+    <string name="invite_menu_label">Convidar</string>
     <string name="invitation_message">Junte-se ao Cartoleiros Messenger</string>
     <string name="invitation_cta">Call to action</string>
     <string name="invitation_title">Cartoleiros Messenger convite</string>
-    <string name="sign_in">Entrar</string>
-    <string name="sign_up">Registrar</string>
-    <string name="fresh_config">Fresh Config</string>
-    <string name="cause_crash">Cause Crash</string>
+    <string name="sign_in">Junte-se a outros Cartoleiros</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
     <string name="title_activity_messenger">Cartoleiros Messenger</string>
     <string name="title_activity_sign_in">Cartoleiros Messenger</string>

@@ -40,14 +40,16 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        _ROOM = getIntent().getStringExtra("room");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        String room = getIntent().getStringExtra("room");
+        _ROOM = room;
+        Log.e("SIGN IN STRING",_ROOM);
         // Assign fields
         mSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
 
@@ -66,14 +68,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         // Initialize FirebaseAuth
         mFirebaseAuth = FirebaseAuth.getInstance();
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
     }
 
     private void handleFirebaseAuthResult(AuthResult authResult) {
@@ -84,7 +78,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
 
             // Go back to the main activity
             Intent msnIntent = new Intent(this, MessengerActivity.class);
-            Log.e("SIGN IN STRING",_ROOM);
             msnIntent.putExtra("room",_ROOM);
             startActivity(msnIntent);
         }
@@ -116,7 +109,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     private void signIn() {
 
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        signInIntent.putExtra("room",_ROOM);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
@@ -155,7 +147,10 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
                             Toast.makeText(SignInActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            startActivity(new Intent(SignInActivity.this, MessengerActivity.class));
+                            Intent msnIntent = new Intent(SignInActivity.this, MessengerActivity.class);
+                            Log.e("SIGN IN STRING",_ROOM);
+                            msnIntent.putExtra("room",_ROOM);
+                            startActivity(msnIntent);
                             finish();
                         }
                     }

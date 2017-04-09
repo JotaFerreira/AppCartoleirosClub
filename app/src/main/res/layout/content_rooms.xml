@@ -1,11 +1,381 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="club.cartoleirosfutebol.cartoleirosclub.RoomsActivity"
-    tools:showIn="@layout/activity_rooms">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_linearlayout"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingTop="?android:attr/actionBarSize">
+
+            <ImageView
+                android:id="@+id/atacantesImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/atacantesTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/atacantesSubTextView"
+                android:layout_margin="1dp"
+                android:layout_weight="0"
+                android:gravity="bottom"
+                android:paddingLeft="10dp"
+                android:text="Atacantes"
+                android:textColor="@android:color/white"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/atacantesSubTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/atacantesImageView"
+                android:layout_alignLeft="@+id/atacantesImageView"
+                android:layout_margin="1dp"
+                android:layout_weight="0"
+                android:gravity="bottom"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:text="Se reúna com outros cartoleiros e discuta os melhores atacantes para a rodada"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:id="@+id/meiasImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/meiasTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/meiasSubTextView"
+                android:layout_margin="1dp"
+                android:layout_weight="0"
+                android:gravity="bottom"
+                android:paddingLeft="10dp"
+                android:text="Meias"
+                android:textColor="@android:color/white"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/meiasSubTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/meiasImageView"
+                android:layout_alignLeft="@+id/meiasImageView"
+                android:layout_margin="1dp"
+                android:layout_weight="0"
+                android:gravity="bottom"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:text="Se reúna com outros cartoleiros e discuta os melhores meias para a rodada"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:id="@+id/lateraisImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/lateraisTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/lateraisSubTextView"
+                android:layout_margin="1dp"
+                android:layout_weight="0"
+                android:gravity="bottom"
+                android:paddingLeft="10dp"
+                android:text="Laterais"
+                android:textColor="@android:color/white"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lateraisSubTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/lateraisImageView"
+                android:layout_alignLeft="@+id/lateraisImageView"
+                android:layout_margin="1dp"
+                android:layout_weight="0"
+                android:gravity="bottom"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:text="Se reúna com outros cartoleiros e discuta os melhores laterais para a rodada"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:id="@+id/zagueirosImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/zagueirosTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/zagueirosSubTextView"
+                android:layout_margin="1dp"
+                android:layout_weight="0"
+                android:gravity="bottom"
+                android:paddingLeft="10dp"
+                android:text="Zagueiros"
+                android:textColor="@android:color/white"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/zagueirosSubTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/zagueirosImageView"
+                android:layout_alignLeft="@+id/zagueirosImageView"
+                android:layout_margin="1dp"
+                android:layout_weight="0"
+                android:gravity="bottom"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:text="Se reúna com outros cartoleiros e discuta os melhores zagueiros para a rodada"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:id="@+id/goleirosImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/goleirosTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/goleirosSubTextView"
+                android:layout_margin="1dp"
+                android:layout_weight="0"
+                android:gravity="bottom"
+                android:paddingLeft="10dp"
+                android:text="Goleiros"
+                android:textColor="@android:color/white"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/goleirosSubTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/goleirosImageView"
+                android:layout_alignLeft="@+id/goleirosImageView"
+                android:layout_margin="1dp"
+                android:layout_weight="0"
+                android:gravity="bottom"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:text="Se reúna com outros cartoleiros e discuta os melhores goleiros para a rodada"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:id="@+id/tecnicosImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/tecnicosTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tecnicosSubTextView"
+                android:layout_margin="1dp"
+                android:layout_weight="0"
+                android:gravity="bottom"
+                android:paddingLeft="10dp"
+                android:text="Técnicos"
+                android:textColor="@android:color/white"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tecnicosSubTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tecnicosImageView"
+                android:layout_alignLeft="@+id/tecnicosImageView"
+                android:layout_margin="1dp"
+                android:layout_weight="0"
+                android:gravity="bottom"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:text="Se reúna com outros cartoleiros e discuta os melhores técnicos para a rodada"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:id="@+id/cartoleirosImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
+
+            <TextView
+                android:id="@+id/cartoleirosTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/cartoleirosSubTextView"
+                android:layout_margin="1dp"
+                android:layout_weight="0"
+                android:gravity="bottom"
+                android:paddingLeft="10dp"
+                android:text="Cartoleiros"
+                android:textColor="@android:color/white"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/cartoleirosSubTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/cartoleirosImageView"
+                android:layout_alignLeft="@+id/cartoleirosImageView"
+                android:layout_margin="1dp"
+                android:layout_weight="0"
+                android:gravity="bottom"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:text="Se reúna com outros cartoleiros e discuta sobre outros assuntos em geral"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
