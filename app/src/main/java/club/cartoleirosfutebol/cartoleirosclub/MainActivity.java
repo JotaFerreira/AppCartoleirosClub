@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -12,6 +13,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -40,6 +42,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabReselectListener;
+import com.roughike.bottombar.OnTabSelectListener;
 
 import java.util.Arrays;
 
@@ -67,6 +72,9 @@ public class MainActivity extends AppCompatActivity
     private TextView titleProfile;
     private User user = new User();
     private View mainView;
+    private String PAGE_ID = "Cartoleiros-Club-1421562694570657";
+    private String FACEBOOK_URL = "https://www.facebook.com/Cartoleiros-Club-1421562694570657";
+    private String FACEBOOK_PAGE_ID = "Cartoleiros-Club-1421562694570657";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +176,7 @@ public class MainActivity extends AppCompatActivity
                 if (!url.equals(_URLOFFLINE)) {
                     mWebView.loadUrl("javascript:alert(dataProfile())");
                 }
+                mWebView.loadUrl("javascript:document.body.style.margin=\"0 0 10% 0\"; void 0");
             }
 
             @Override
@@ -199,6 +208,38 @@ public class MainActivity extends AppCompatActivity
                 return true;
             }
 
+        });
+
+        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+                if (tabId == R.id.tab_feed) {
+                    mWebView.loadUrl(_URLMAIN + "?r=dashboard%2Fdashboard");
+                } else if(tabId == R.id.tab_spaces){
+                    mWebView.loadUrl(_URLMAIN + "?r=directory%2Fdirectory%2Fspaces");
+                }else if(tabId == R.id.tab_bell){
+                    mWebView.loadUrl(_URLMAIN + "?r=notification%2Foverview");
+                }else if(tabId == R.id.tab_letter){
+                    mWebView.loadUrl(_URLMAIN + "?r=mail%2Fmail%2Findex");
+                }
+            }
+
+        });
+
+        bottomBar.setOnTabReselectListener(new OnTabReselectListener() {
+            @Override
+            public void onTabReSelected(@IdRes int tabId) {
+                if (tabId == R.id.tab_feed) {
+                    mWebView.loadUrl(_URLMAIN + "?r=dashboard%2Fdashboard");
+                } else if(tabId == R.id.tab_spaces){
+                    mWebView.loadUrl(_URLMAIN + "?r=directory%2Fdirectory%2Fspaces");
+                }else if(tabId == R.id.tab_bell){
+                    mWebView.loadUrl(_URLMAIN + "?r=notification%2Foverview");
+                }else if(tabId == R.id.tab_letter){
+                    mWebView.loadUrl(_URLMAIN + "?r=mail%2Fmail%2Findex");
+                }
+            }
         });
 
         mWebView.setWebChromeClient(new MyWebChromeClient());
@@ -272,6 +313,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_messenger) {
             Intent intent = new Intent(this, RoomsActivity.class);
             startActivity(intent);
+        } else if (id == R.id.nav_facebook) {
+            Intent facebookIntent = new Intent(Intent.ACTION_VIEW);
+            String facebookUrl = getFacebookPageURL(this);
+            facebookIntent.setData(Uri.parse(facebookUrl));
+            startActivity(facebookIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -329,6 +375,21 @@ public class MainActivity extends AppCompatActivity
         }
 
         return CookieValue;
+    }
+
+    //method to get the right URL to use in the intent
+    public String getFacebookPageURL(Context context) {
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            int versionCode = packageManager.getPackageInfo("com.facebook.katana", 0).versionCode;
+            if (versionCode >= 3002850) { //newer versions of fb app
+                return "fb://facewebmodal/f?href=" + FACEBOOK_URL;
+            } else { //older versions of fb app
+                return "fb://page/" + FACEBOOK_PAGE_ID;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            return FACEBOOK_URL; //normal web url
+        }
     }
 
     @Override

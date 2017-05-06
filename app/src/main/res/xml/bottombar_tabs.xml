@@ -1,0 +1,18 @@
+<tabs>
+    <tab
+        id="@+id/tab_feed"
+        icon="@drawable/bar_feed"
+        title="Timeline" />
+    <tab
+        id="@+id/tab_spaces"
+        icon="@drawable/bar_spaces"
+        title="Espaços" />
+    <tab
+        id="@+id/tab_bell"
+        icon="@drawable/bar_bell"
+        title="Notificações" />
+    <tab
+        id="@+id/tab_letter"
+        icon="@drawable/bar_letter"
+        title="Mensagens" />
+</tabs>

@@ -52,10 +52,10 @@
                 android:id="@+id/nav_facebook"
                 android:icon="@drawable/facebook"
                 android:title="Facebook" />
-            <item
+       <!--     <item
                 android:id="@+id/nav_twitter"
                 android:icon="@drawable/twitter"
-                android:title="Twitter" />
+                android:title="Twitter" />-->
         </menu>
     </item>
 

@@ -26,13 +26,19 @@
             <im.delight.android.webview.AdvancedWebView
                 android:id="@+id/webview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="match_parent"
+                android:paddingBottom="100dp">
             </im.delight.android.webview.AdvancedWebView>
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
+        <com.roughike.bottombar.BottomBar
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            app:bb_tabXmlResource="@xml/bottombar_tabs" />
+
     </RelativeLayout>
-
-
 
 </LinearLayout>
